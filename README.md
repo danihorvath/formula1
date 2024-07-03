@@ -1,33 +1,33 @@
 # Formula 1 Application
 
-Frontend: React
-Backend: ExpressJS
+Frontend: React (Typescript, Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Backend: ExpressJS (Typescript)
 
-Currently, two official plugins are available:
+![Screenshot](https://raw.githubusercontent.com/danihorvath/formula1/main/screenshots/1.png "Screenshot")
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Running locally
+- clone repository: https://github.com/danihorvath/formula1-api
+- npm install, npm run dev
 
-## Expanding the ESLint configuration
+- clone repository: https://github.com/danihorvath/formula1
+- npm install, npm run dev
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
+- Randomizing driver positions at the time of API initialization and storing in the memory
+- Returning complete list of drivers on GET /api/drivers
+- Possibility to move a driver to the front with one position via POST /drivers/:driverId/overtake. Returning new positions.
+- Error messages when the driver is not found by the given id or the driver is already in the 1st position
+- The frontend loads and presents the drivers in a responsive grid of MUI cards
+- Displaying the name of the driver, their team, their current place, their code and their photo (which is served from the backend)
+- Button at the bottom of the card, triggering the overtake endpoint when clicked (and updating the list)
+- Unit test for the frontend
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: "latest",
-    sourceType: "module",
-    project: ["./tsconfig.json", "./tsconfig.node.json"],
-    tsconfigRootDir: __dirname,
-  },
-};
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## TODO
+- Display the flag of the driver’s home country. Use the country code provided in the JSON, and the CountryFlags API
+- Develop the functionality for overtaking multiple drivers at a time. So DriverA from the 5th place could jump directly to the 2nd place with a single user interaction. You can use query params, or send data in the body, implementation details are up to you
+- Enable the users to reorder the drivers via drag and drop
+- Dockerize your application
+- Persist data in a dockerized PostgreSQL database instead of in-memory
+- Have CSS animation on your frontend component when the user reorders the drivers
+- Write some basic tests on the backend using Jest

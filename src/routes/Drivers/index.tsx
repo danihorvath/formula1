@@ -15,6 +15,11 @@ export interface Driver {
   imgUrl: string;
 }
 
+interface OvertakeResponse {
+  message: string;
+  newPositions: Driver[];
+}
+
 function App() {
   const [list, setList] = useState<Driver[]>([]);
 
@@ -26,6 +31,16 @@ function App() {
       );
   }, []);
 
+  const overtake = (id: number) => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/drivers/${id}/overtake`, {
+      method: "post",
+    })
+      .then((response) => response.json())
+      .then((response: OvertakeResponse) =>
+        setList(response.newPositions.sort((a, b) => a.place - b.place))
+      );
+  };
+
   return (
     <Container maxWidth="lg">
       <Typography variant="h2" marginY={3}>
@@ -34,7 +49,7 @@ function App() {
       <Grid container spacing={2} marginBottom={6}>
         {list.map((driver) => (
           <Grid item xs={12} sm={6} md={4} lg={3}>
-            <DriverCard driver={driver} />
+            <DriverCard driver={driver} overtake={overtake} />
           </Grid>
         ))}
       </Grid>

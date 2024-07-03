@@ -1,5 +1,11 @@
 import { useRouteError } from "react-router-dom";
 
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
 function ErrorPage() {
   const error = useRouteError() as any;
   console.error(error);

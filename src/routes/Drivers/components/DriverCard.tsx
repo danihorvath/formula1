@@ -14,10 +14,20 @@ interface DriverCardProps {
   overtake: (id: number) => void;
 }
 
+const placeColors = [" #c9b037", "#d7d7d7", "#ad8a56"];
+
 const DriverCard = ({ driver, overtake }: DriverCardProps) => (
   <Card variant="outlined" key={driver.id}>
     <CardHeader
-      avatar={<Avatar aria-label="recipe">{driver.place}</Avatar>}
+      data-testid="header"
+      avatar={
+        <Avatar
+          aria-label="recipe"
+          sx={{ backgroundColor: placeColors[driver.place - 1] }}
+        >
+          {driver.place}
+        </Avatar>
+      }
       title={`${driver.firstname} ${driver.lastname}`}
       subheader={driver.team}
       action={
@@ -37,6 +47,7 @@ const DriverCard = ({ driver, overtake }: DriverCardProps) => (
         sx={{ marginLeft: "auto" }}
         disabled={driver.place === 1}
         onClick={() => overtake(driver.id)}
+        data-testid="button"
       >
         <ArrowUpwardIcon />
       </IconButton>

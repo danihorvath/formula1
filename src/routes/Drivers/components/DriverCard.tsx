@@ -39,7 +39,7 @@ const DriverCard = ({ driver, overtake }: DriverCardProps) => (
     <CardMedia
       component="img"
       image={`${import.meta.env.VITE_API_URL}${driver.imgUrl}`}
-      alt="Paella dish"
+      alt={`Photo of ${driver.firstname} ${driver.lastname}`}
     />
     <CardActions>
       <IconButton
